@@ -25,6 +25,6 @@ def validate_login(email: str, password: str) -> dict:
     errors = []
     if not validate_email(email):
         errors.append("invalid email")
-    if not password or len(password) < 8:
+    if not password or not password.strip() or len(password) < 8:
         errors.append("password must be at least 8 characters")
     return {"ok": not errors, "errors": errors}

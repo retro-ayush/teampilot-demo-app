@@ -28,3 +28,16 @@ def test_login_flow():
     assert validate_login("jane@example.com", "s3cretpass")["ok"] is True
     res = validate_login("", "short")
     assert res["ok"] is False and len(res["errors"]) == 2
+
+
+def test_login_empty_inputs():
+    res = validate_login("", "")
+    assert res["ok"] is False and len(res["errors"]) == 2
+    assert "invalid email" in res["errors"]
+    assert "password must be at least 8 characters" in res["errors"]
+
+    res_spaces = validate_login("   ", "        ")
+    assert res_spaces["ok"] is False and len(res_spaces["errors"]) == 2
+
+    res_none = validate_login(None, None)
+    assert res_none["ok"] is False and len(res_none["errors"]) == 2
