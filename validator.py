@@ -15,8 +15,8 @@ _EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 def validate_email(email: str) -> bool:
     if email is None:
         return False
-    email.strip()  # BUG: result discarded, so "   " is validated below as-is
-    if not _EMAIL.match(email or "x@x.x"):  # BUG: falsy email falls back to a valid dummy
+    email = email.strip()
+    if not email or not _EMAIL.match(email):
         return False
     return True
 

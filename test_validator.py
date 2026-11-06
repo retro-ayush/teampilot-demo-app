@@ -15,8 +15,13 @@ def test_rejects_malformed():
 
 
 def test_rejects_empty_email():
-    assert validate_email("") is False          # fails: falsy fallback bug
-    assert validate_email("   ") is False       # fails: discarded strip() bug
+    assert validate_email("") is False
+    assert validate_email("   ") is False
+    assert validate_email("\t\n") is False
+
+
+def test_valid_email_with_whitespace():
+    assert validate_email("  jane@example.com  ") is True
 
 
 def test_login_flow():
